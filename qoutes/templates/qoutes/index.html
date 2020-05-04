@@ -64,8 +64,8 @@ body, html {
 
 <div class="bg-text">    
   
-  <h4 style="font-size:25px"><p>{{ qoute.content }}</p></h4>
-  <h4>- {{ qoute.title }}</h4>
+  <h4 style="font-size:25px"><p>{{ qoute.content|safe }}</p></h4>
+  <h4>- {{ qoute.title|safe }}</h4>
 </div>
 
 </body>

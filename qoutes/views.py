@@ -1,27 +1,21 @@
 from django.shortcuts import render
 import requests
-import re
-
-
 
 def index(request):
 	template_name = 'qoutes/index.html'
 
 	#api provider link
 	#https://quotesondesign.com/api-v4-0/
-
-	url = 'http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1'
+	url = 'https://quotesondesign.com/wp-json/wp/v2/posts/?orderby=rand'
 
 	r = requests.get(url.format()).json()
 	
-	title = r[0]['title']
-	content = r[0]['content']
+	title = r[0]['title']['rendered']
+	content = r[0]['content']['rendered']
 
-	content = re.sub('<[^<]+?>', '', content) #remove p tags in the api call on 'contents'
-
-	qoute_values = {
+	qoute = {
 		'title': title,
 		'content': content,
 	}
 
-	return render(request, template_name, {'qoute':qoute_values} )
+	return render(request, template_name, {'qoute': qoute})
